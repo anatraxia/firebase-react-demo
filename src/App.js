@@ -16,6 +16,10 @@ class App extends Component {
     [e.target.name]: e.target.value
   });
   }
+  removeItem = (itemId) => {
+    const itemRef = firebase.database().ref(`/items/${itemId}`);
+    itemRef.remove();
+  }
   handleSubmit = (e) =>{
     e.preventDefault()
     const itemsRef = firebase.database().ref('items');
@@ -71,6 +75,7 @@ class App extends Component {
                     <li key={item.id}>
                       <h3>{item.title}</h3>
                       <p>brought by: {item.user}</p>
+                      <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
                     </li>
                   )
                 })}
